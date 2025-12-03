@@ -1,0 +1,15 @@
+[project]
+name = "sso-service"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "study_glotov_av", email = "study_glotov_av@magnit.ru"},
+]
+dependencies = ["fastapi[all]>=0.123.5", "cryptography>=43.0.3", "pyjwt>=2.10.1", "pwdlib[all]>=0.2.1"]
+requires-python = "==3.9.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
