@@ -7,10 +7,14 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     SECRET_KEY: str
-    ALGORITHM: str = "HS256"
+    PASSPHRASE: str
+    ALGORITHM: str = "RS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
     DATABASE_PATH:str = "../data/user.sqlite3"
+
+    PEM_PATH_PRIVATE:str = "../secrets/private.pem"
+    PEM_PATH_PUBLIC:str = "../secrets/public.pem"
 
     LOG_PATH: str = "../logs/logs.log"
     LOG_LEVEL: str = "INFO"
@@ -19,7 +23,6 @@ class Settings(BaseSettings):
     PORT: int = 8000
 
     class Config:
-        env_file = "../config/.env"
-
+        env_file = "../secrets/.env"
 
 settings = Settings()
