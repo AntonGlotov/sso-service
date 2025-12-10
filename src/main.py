@@ -7,7 +7,12 @@ from logger import setup_logging
 
 setup_logging()
 
-app = FastAPI()
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    version=settings.VERSION,
+    docs_url="/docs" if settings.DEBUG else None,
+    redoc_url="/redoc" if settings.DEBUG else None
+)
 app.include_router(api_router)
 
 if __name__ == '__main__':

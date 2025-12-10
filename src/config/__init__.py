@@ -1,16 +1,12 @@
-from dotenv import load_dotenv
-from os import getenv
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "My FastAPI App"
     VERSION: str = "1.0.0"
-    DEBUG: bool = False
+    DEBUG: bool = True
 
-    load_dotenv("config/.env")
-
-    SECRET_KEY:str = str(getenv("SECRET_KEY"))
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
@@ -23,7 +19,7 @@ class Settings(BaseSettings):
     PORT: int = 8000
 
     class Config:
-        env_file = ".env"
+        env_file = "../config/.env"
 
 
 settings = Settings()

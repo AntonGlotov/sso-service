@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:f4580f0b9a522924a534cdd70d7f1d22383fb382d313fb8b61629233d95ca500"
+content_hash = "sha256:981f21644c782c90cc94b7422099ffc59afb9bf7ae64c0b26c39bb52d7b146d4"
 
 [[metadata.targets]]
 requires_python = "==3.9.*"
@@ -496,7 +496,7 @@ files = [
 [[package]]
 name = "pwdlib"
 version = "0.2.1"
-extras = ["hashers"]
+extras = ["all"]
 requires_python = ">=3.8"
 summary = "Modern password hashing for Python"
 groups = ["default"]

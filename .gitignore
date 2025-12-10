@@ -6,4 +6,5 @@ __pycache__/
 .pdm-python
 .idea/
 .env
-.log
+logs/
+tests/
