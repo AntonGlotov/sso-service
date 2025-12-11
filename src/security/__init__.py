@@ -1,13 +1,13 @@
 from queries import get_user_hashed_password
 from pwdlib import PasswordHash
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import jwt
 from config import settings
 from typing import Annotated
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from dto import TokenData, User
-from pem_utils import get_private_key, get_private_key, get_public_key
+from pem_utils import get_private_key, get_public_key
 
 password_hash = PasswordHash.recommended()
 
@@ -24,16 +24,43 @@ def authenticate_user(username: str, password: str):
     return user
 
 
-def create_jwt(data: dict, token_exp) -> bool:
-    to_encode = data.copy()
-    exp = datetime.now(timezone.utc) + token_exp
-    to_encode.update({"exp": exp})
-    jwt_token = jwt.encode(
-        to_encode,
+def create_jwt(token_data, expire):
+    exp = datetime.now(timezone.utc) + timedelta(minutes=expire)
+    payload = token_data
+    payload.update({"exp": exp,
+                    "iat": datetime.now(timezone.utc)
+    })
+
+
+    return jwt.encode(
+        payload=payload,
         key=get_private_key(),
         algorithm=settings.ALGORITHM
-        )
-    return jwt_token
+    )
+
+
+def create_access_token(user: User) -> str:
+    token_data = {
+        "type": settings.ACCESS_TOKEN_TYPE,
+        "username": user.username
+    }
+
+    return create_jwt(
+        token_data,
+        settings.ACCESS_TOKEN_EXPIRE_MINUTES
+    )
+
+
+def create_refresh_token(user: User) -> str:
+    token_data = {
+        "type": settings.REFRESH_TOKEN_TYPE,
+        "username": user.username
+    }
+
+    return create_jwt(
+        token_data,
+        settings.REFRESH_TOKEN_EXPIRE_DAYS
+    )
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 

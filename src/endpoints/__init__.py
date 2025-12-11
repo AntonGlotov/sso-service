@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 
-from security import authenticate_user, create_jwt, get_current_active_user
+from security import authenticate_user, create_access_token, get_current_active_user
 from dto import Token, User
 from config import settings
 
@@ -23,12 +23,9 @@ async def login_for_access_token(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_jwt(
-        data={"sub": user.username}, token_exp=access_token_expires
-    )
+    access_token = create_access_token(user)
 
-    return Token(access_token=str(access_token), token_type="bearer")
+    return Token(access_token=access_token, token_type="bearer")
 
 
 @api_router.get("/users/me/", response_model=User)
