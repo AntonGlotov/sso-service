@@ -3,7 +3,12 @@ from typing import Union
 
 class Token(BaseModel):
     access_token: str
+    refresh_token: str
     token_type: str
+
+
+class TokenRefresh(BaseModel):
+    refresh_token: str
 
 
 class User(BaseModel):
@@ -19,3 +24,4 @@ class UserInDB(User):
 
 class TokenData(BaseModel):
     username: Union[str, None] = None
+    type: Union[str, None] = None
