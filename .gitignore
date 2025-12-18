@@ -7,6 +7,5 @@ __pycache__/
 .idea/
 .env
 logs/
-tests/
 temp/
 *.pem

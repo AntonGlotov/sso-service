@@ -43,8 +43,7 @@ def create_jwt(token_data, expire):
 def create_access_token(user: User) -> str:
     token_data = {
         "sub": user.username,
-        "type": settings.ACCESS_TOKEN_TYPE,
-        "username": user.username
+        "type": settings.ACCESS_TOKEN_TYPE
     }
 
     return create_jwt(
@@ -56,8 +55,7 @@ def create_access_token(user: User) -> str:
 def create_refresh_token(user: User) -> str:
     token_data = {
         "sub": user.username,
-        "type": settings.REFRESH_TOKEN_TYPE,
-        "username": user.username
+        "type": settings.REFRESH_TOKEN_TYPE
     }
 
     return create_jwt(
