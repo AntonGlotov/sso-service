@@ -6,7 +6,7 @@ def setup_logging():
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.FileHandler(settings.LOG_PATH),
+            logging.FileHandler(settings.log_path),
             logging.StreamHandler()
         ]
     )

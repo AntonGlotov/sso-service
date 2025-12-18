@@ -1,4 +1,5 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
 
 
 class Settings(BaseSettings):
@@ -14,18 +15,32 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
 
-    DATABASE_PATH:str = "../data/user.sqlite3"
-
-    PEM_PATH_PRIVATE:str = "../secrets/private.pem"
-    PEM_PATH_PUBLIC:str = "../secrets/public.pem"
-
-    LOG_PATH: str = "../logs/logs.log"
-    LOG_LEVEL: str = "INFO"
-
     HOST: str = "localhost"
     PORT: int = 8000
 
-    class Config:
-        env_file = "../secrets/.env"
+    @property
+    def project_root(self) -> str:
+        return str(Path(__file__).parent.parent.parent)
+
+    @property
+    def database_path(self) -> str:
+        return f"{self.project_root}/data/user.sqlite3"
+
+    @property
+    def pem_path_private(self) -> str:
+        return f"{self.project_root}/secrets/private.pem"
+
+    @property
+    def pem_path_public(self) -> str:
+        return f"{self.project_root}/secrets/public.pem"
+
+    @property
+    def log_path(self) -> str:
+        return f"{self.project_root}/logs/logs.log"
+
+    model_config = SettingsConfigDict(
+        env_file=f"{str(Path(__file__).parent.parent.parent)}/secrets/.env"
+    )
+
 
 settings = Settings()

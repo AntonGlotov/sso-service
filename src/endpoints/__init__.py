@@ -15,7 +15,7 @@ from security import (
 api_router = APIRouter()
 
 
-@api_router.post("/token", response_model=Token)
+@api_router.post("/access_token", response_model=Token)
 async def login_for_access_token(
         form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ):
@@ -37,7 +37,7 @@ async def login_for_access_token(
     )
 
 
-@api_router.post("/refresh", response_model=Token)
+@api_router.post("/refresh_token", response_model=Token)
 async def refresh_access_token(
         current_user: Annotated[User, Depends(get_current_active_user_from_refresh)],
 ):

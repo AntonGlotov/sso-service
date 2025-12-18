@@ -4,7 +4,6 @@ from config import settings
 from endpoints import api_router
 from logger import setup_logging
 
-
 setup_logging()
 
 app = FastAPI(

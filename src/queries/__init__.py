@@ -5,7 +5,7 @@ from dto import UserInDB, User
 
 
 def get_database_connection():
-    connection = sqlite3.connect(f'{settings.DATABASE_PATH}')
+    connection = sqlite3.connect(f'{settings.database_path}')
     cursor = connection.cursor()
     return connection, cursor
 
